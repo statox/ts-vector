@@ -358,6 +358,43 @@ test('Norm methods', () => {
     });
 });
 
+test('Randomization methods', () => {
+    /**
+     * TODO Use a different RNG because Math.random() is not seedable so tests
+     * can't be entirely reproducible.
+     */
+
+    test('randomizeX', () => {
+        const v = new Victor(0, 0);
+        const topLeft = new Victor(1, 1);
+        const bottomRight = new Victor(2, 2);
+
+        v.randomizeX(topLeft, bottomRight);
+        assert.ok(v.x >= topLeft.x && v.x <= bottomRight.x);
+        assert.strictEqual(v.y, 0);
+    });
+
+    test('randomizeY', () => {
+        const v = new Victor(0, 0);
+        const topLeft = new Victor(1, 1);
+        const bottomRight = new Victor(2, 2);
+
+        v.randomizeY(topLeft, bottomRight);
+        assert.strictEqual(v.x, 0);
+        assert.ok(v.y >= topLeft.y && v.y <= bottomRight.y);
+    });
+
+    test('randomize', () => {
+        const v = new Victor(0, 0);
+        const topLeft = new Victor(1, 1);
+        const bottomRight = new Victor(2, 2);
+
+        v.randomize(topLeft, bottomRight);
+        assert.ok(v.x >= topLeft.x && v.x <= bottomRight.x);
+        assert.ok(v.y >= topLeft.y && v.y <= bottomRight.y);
+    });
+});
+
 test('Rotation methods', () => {
     test('rotateTo', () => {
         const v = new Victor(10, 0);

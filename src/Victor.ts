@@ -637,30 +637,6 @@ export class Victor {
     }
 
     /**
-     * Randomizes both vector axis with a value between 2 vectors
-     *
-     * ### Examples:
-     *     const vec = new Victor(100, 50);
-     *
-     *     const topLeft = new Victor(50, 60)
-     *     const bottomRight = new Victor(70, 80)
-     *
-     *     vec.randomize(topLeft, bottomRight);
-     *     assert.equal(vec.x, 67.17186656753522)
-     *     assert.equal(vec.y, 73.933542831865296)
-     *
-     * @param {Victor} topLeft First bounding vector
-     * @param {Victor} bottomRight Second bouding vector
-     * @return `this` for chaining capabilities
-     */
-    randomize(topLeft: Victor, bottomRight: Victor) {
-        this.randomizeX(topLeft, bottomRight);
-        this.randomizeY(topLeft, bottomRight);
-
-        return this;
-    }
-
-    /**
      * Randomizes the X axis with a value between the X axes of 2 others vectors
      *
      * ### Examples:
@@ -705,6 +681,30 @@ export class Victor {
         const min = Math.min(topLeft.y, bottomRight.y);
         const max = Math.max(topLeft.y, bottomRight.y);
         this.y = random(min, max);
+        return this;
+    }
+
+    /**
+     * Randomizes both vector axis with a value between 2 vectors
+     *
+     * ### Examples:
+     *     const vec = new Victor(100, 50);
+     *
+     *     const topLeft = new Victor(50, 60)
+     *     const bottomRight = new Victor(70, 80)
+     *
+     *     vec.randomize(topLeft, bottomRight);
+     *     assert.equal(vec.x, 67.17186656753522)
+     *     assert.equal(vec.y, 73.933542831865296)
+     *
+     * @param {Victor} topLeft First bounding vector
+     * @param {Victor} bottomRight Second bouding vector
+     * @return `this` for chaining capabilities
+     */
+    randomize(topLeft: Victor, bottomRight: Victor) {
+        this.randomizeX(topLeft, bottomRight);
+        this.randomizeY(topLeft, bottomRight);
+
         return this;
     }
 
@@ -1445,7 +1445,7 @@ export const fromObject = (obj: { x?: number; y?: number }) => {
 const degrees = 180 / Math.PI;
 
 function random(min: number, max: number) {
-    return Math.random() * (max - min + 1) + min;
+    return Math.random() * (max - min) + min;
 }
 
 function radian2degrees(rad: number) {
