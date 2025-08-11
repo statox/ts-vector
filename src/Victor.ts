@@ -422,6 +422,119 @@ export class Victor {
     }
 
     /**
+     * Multiplies the X axis of this vector by the X axis of another one
+     *
+     * ### Examples:
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(2, 0);
+     *
+     *     vec1.multiplyX(vec2);
+     *     assert.equal(vec1.x, 200)
+     *     assert.equal(vec1.y, 50)
+     *
+     * @param {Victor} vec The other vector you want multiply by
+     * @return `this` for chaining capabilities
+     */
+    multiplyX(vec: Victor) {
+        this.x *= vec.x;
+        return this;
+    }
+
+    /**
+     * Multiplies the Y axis of this vector by the Y axis of another one
+     *
+     * ### Examples:
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(0, 2);
+     *
+     *     vec1.multiplyY(vec2);
+     *     assert.equal(vec1.x, 100)
+     *     assert.equal(vec1.y, 100)
+     *
+     * @param {Victor} vec The other vector you want multiply by
+     * @return `this` for chaining capabilities
+     */
+    multiplyY(vec: Victor) {
+        this.y *= vec.y;
+        return this;
+    }
+
+    /**
+     * Multiplies both axis of this vector by those of another one
+     *
+     * ### Examples:
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(2, 2);
+     *
+     *     vec1.multiply(vec2);
+     *     assert.equal(vec1.x, 200)
+     *     assert.equal(vec1.y, 100)
+     *
+     * @param {Victor} vec The vector to multiply by
+     * @return `this` for chaining capabilities
+     */
+    multiply(vec: Victor) {
+        this.x *= vec.x;
+        this.y *= vec.y;
+        return this;
+    }
+
+    /**
+     * Multiplies both vector axis by the given scalar
+     *
+     * ### Examples:
+     *     const vec = new Victor(100, 50);
+     *
+     *     vec.multiplyScalar(2);
+     *     assert.equal(vec.x, 200)
+     *     assert.equal(vec.y, 100)
+     *
+     * @param {Number} scalar The scalar to multiply by
+     * @return `this` for chaining capabilities
+     */
+    multiplyScalar(scalar: number) {
+        this.x *= scalar;
+        this.y *= scalar;
+        return this;
+    }
+
+    /**
+     * Multiplies the X axis by the given scalar
+     *
+     * ### Examples:
+     *     const vec = new Victor(100, 50);
+     *
+     *     vec.multiplyScalarX(2);
+     *     assert.equal(vec.x, 200)
+     *     assert.equal(vec.y, 50)
+     *
+     * @param {Number} scalar The scalar to multiply by
+     * @return `this` for chaining capabilities
+     */
+    multiplyScalarX(scalar: number) {
+        this.x *= scalar;
+        return this;
+    }
+
+    /**
+     * Multiplies the Y axis by the given scalar
+     *
+     * ### Examples:
+     *     const vec = new Victor(100, 50);
+     *
+     *     vec.multiplyScalarY(2);
+     *     assert.equal(vec.x, 100)
+     *     assert.equal(vec.y, 100)
+     *
+     * @param {Number} scalar The scalar to multiply by
+     * @return `this` for chaining capabilities
+     */
+    multiplyScalarY(scalar: number) {
+        this.y *= scalar;
+        return this;
+    }
+
+    /**
      * Inverts the X axis
      *
      * ### Examples:
@@ -470,119 +583,6 @@ export class Victor {
     invert() {
         this.x *= -1;
         this.y *= -1;
-        return this;
-    }
-
-    /**
-     * Multiplies the X axis of this vector by the X axis of another one
-     *
-     * ### Examples:
-     *     const vec1 = new Victor(100, 50);
-     *     const vec2 = new Victor(2, 0);
-     *
-     *     vec1.multiplyX(vec2);
-     *     assert.equal(vec1.x, 200)
-     *     assert.equal(vec1.y, 50)
-     *
-     * @param {Victor} vec The other vector you want multiply by
-     * @return `this` for chaining capabilities
-     */
-    multiplyX(vec: Victor) {
-        this.x *= vec.x;
-        return this;
-    }
-
-    /**
-     * Multiplies the Y axis of this vector by the Y axis of another one
-     *
-     * ### Examples:
-     *     const vec1 = new Victor(100, 50);
-     *     const vec2 = new Victor(0, 2);
-     *
-     *     vec1.multiplyX(vec2);
-     *     assert.equal(vec1.x, 100)
-     *     assert.equal(vec1.y, 100)
-     *
-     * @param {Victor} vec The other vector you want multiply by
-     * @return `this` for chaining capabilities
-     */
-    multiplyY(vec: Victor) {
-        this.y *= vec.y;
-        return this;
-    }
-
-    /**
-     * Multiplies both axis of this vector by those of another one
-     *
-     * ### Examples:
-     *     const vec1 = new Victor(100, 50);
-     *     const vec2 = new Victor(2, 2);
-     *
-     *     vec1.divide(vec2);
-     *     assert.equal(vec1.x, 200)
-     *     assert.equal(vec1.y, 100)
-     *
-     * @param {Victor} vec The vector to multiply by
-     * @return `this` for chaining capabilities
-     */
-    multiply(vec: Victor) {
-        this.x *= vec.x;
-        this.y *= vec.y;
-        return this;
-    }
-
-    /**
-     * Multiplies both vector axis by the given scalar
-     *
-     * ### Examples:
-     *     const vec = new Victor(100, 50);
-     *
-     *     vec.multiplyScalar(2);
-     *     assert.equal(vec1.x, 200)
-     *     assert.equal(vec1.y, 100)
-     *
-     * @param {Number} scalar The scalar to multiply by
-     * @return `this` for chaining capabilities
-     */
-    multiplyScalar(scalar: number) {
-        this.x *= scalar;
-        this.y *= scalar;
-        return this;
-    }
-
-    /**
-     * Multiplies the X axis by the given scalar
-     *
-     * ### Examples:
-     *     const vec = new Victor(100, 50);
-     *
-     *     vec.multiplyScalarX(2);
-     *     assert.equal(vec.x, 200)
-     *     assert.equal(vec.y, 50)
-     *
-     * @param {Number} scalar The scalar to multiply by
-     * @return `this` for chaining capabilities
-     */
-    multiplyScalarX(scalar: number) {
-        this.x *= scalar;
-        return this;
-    }
-
-    /**
-     * Multiplies the Y axis by the given scalar
-     *
-     * ### Examples:
-     *     const vec = new Victor(100, 50);
-     *
-     *     vec.multiplyScalarY(2);
-     *     assert.equal(vec.x, 100)
-     *     assert.equal(vec.y, 100)
-     *
-     * @param {Number} scalar The scalar to multiply by
-     * @return `this` for chaining capabilities
-     */
-    multiplyScalarY(scalar: number) {
-        this.y *= scalar;
         return this;
     }
 

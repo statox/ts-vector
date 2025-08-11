@@ -181,6 +181,83 @@ test('Division functions', () => {
     });
 });
 
+test('Multiplication functions', () => {
+    test('multiplyX', () => {
+        const vec1 = new Victor(100, 50);
+        const vec2 = new Victor(2, 0);
+
+        vec1.multiplyX(vec2);
+        assert.strictEqual(vec1.x, 200);
+        assert.strictEqual(vec1.y, 50);
+    });
+
+    test('multiplyY', () => {
+        const vec1 = new Victor(100, 50);
+        const vec2 = new Victor(0, 2);
+
+        vec1.multiplyY(vec2);
+        assert.strictEqual(vec1.x, 100);
+        assert.strictEqual(vec1.y, 100);
+    });
+
+    test('multiply', () => {
+        const vec1 = new Victor(100, 50);
+        const vec2 = new Victor(2, 2);
+
+        vec1.multiply(vec2);
+        assert.strictEqual(vec1.x, 200);
+        assert.strictEqual(vec1.y, 100);
+    });
+
+    test('multiplyScalar', () => {
+        const vec = new Victor(100, 50);
+
+        vec.multiplyScalar(2);
+        assert.strictEqual(vec.x, 200);
+        assert.strictEqual(vec.y, 100);
+    });
+
+    test('multiplyScalarX', () => {
+        const vec = new Victor(100, 50);
+
+        vec.multiplyScalarX(2);
+        assert.strictEqual(vec.x, 200);
+        assert.strictEqual(vec.y, 50);
+    });
+
+    test('multiplyScalarY', () => {
+        const vec = new Victor(100, 50);
+
+        vec.multiplyScalarY(2);
+        assert.strictEqual(vec.x, 100);
+        assert.strictEqual(vec.y, 100);
+    });
+
+    test('invertX', () => {
+        const vec = new Victor(100, 50);
+
+        vec.invertX();
+        assert.strictEqual(vec.x, -100);
+        assert.strictEqual(vec.y, 50);
+    });
+
+    test('invertY', () => {
+        const vec = new Victor(100, 50);
+
+        vec.invertY();
+        assert.strictEqual(vec.x, 100);
+        assert.strictEqual(vec.y, -50);
+    });
+
+    test('invert', () => {
+        const vec = new Victor(100, 50);
+
+        vec.invert();
+        assert.strictEqual(vec.x, -100);
+        assert.strictEqual(vec.y, -50);
+    });
+});
+
 test('Distance functions', () => {
     test('distanceX', () => {
         const v1 = new Victor(0, 0);
