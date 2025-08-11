@@ -554,6 +554,51 @@ test('Angle methods', () => {
     });
 });
 
+test('Mix methods', () => {
+    test('mixX', () => {
+        const vec1 = new Victor(100, 100);
+        const vec2 = new Victor(200, 200);
+
+        vec1.mixX(vec2, 0.5);
+        assert.strictEqual(vec1.x, 150);
+        assert.strictEqual(vec1.y, 100);
+    });
+
+    test('mixY', () => {
+        const vec1 = new Victor(100, 100);
+        const vec2 = new Victor(200, 200);
+
+        vec1.mixY(vec2, 0.5);
+        assert.strictEqual(vec1.x, 100);
+        assert.strictEqual(vec1.y, 150);
+    });
+
+    test('mix', () => {
+        const vec1 = new Victor(100, 100);
+        const vec2 = new Victor(200, 200);
+
+        vec1.mix(vec2, 0.5);
+        assert.strictEqual(vec1.x, 150);
+        assert.strictEqual(vec1.y, 150);
+    });
+});
+
 test('toString', () => {
     assert.strictEqual(new Victor(0, 0).toString(), 'x: 0, y: 0');
+});
+
+test('unfloat', () => {
+    const vec = new Victor(100.2, 50.9);
+
+    vec.unfloat();
+    assert.strictEqual(vec.x, 100);
+    assert.strictEqual(vec.y, 51);
+});
+
+test('toFixed', () => {
+    const vec = new Victor(100.2345, 50.9876);
+
+    vec.toFixed(2);
+    assert.strictEqual(vec.x, 100.23);
+    assert.strictEqual(vec.y, 50.99);
 });

@@ -761,7 +761,7 @@ export class Victor {
      *
      *     vec.toFixed(2);
      *     assert.equal(vec.x, 100.23)
-     *     assert.equal(vec.y, 50.98)
+     *     assert.equal(vec.y, 50.99)
      *
      * @param {Number} precision (default: 8)
      * @return `this` for chaining capabilities
