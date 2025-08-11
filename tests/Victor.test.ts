@@ -308,15 +308,53 @@ test('Distance methods', () => {
     });
 });
 
-test('Helper methods', () => {
+test('Norm methods', () => {
     test('length', () => {
         assert.strictEqual(new Victor(100, 0).length(), 100);
         assert.strictEqual(new Victor(0, 100).length(), 100);
         assert.strictEqual(new Victor(100, 50).length(), 111.80339887498948);
     });
 
-    test('toString', () => {
-        assert.strictEqual(new Victor(0, 0).toString(), 'x: 0, y: 0');
+    test('normalize', () => {
+        const v1 = new Victor(10, 0).normalize();
+        assert.strictEqual(v1.x, 1);
+        assert.strictEqual(v1.y, 0);
+
+        const v2 = new Victor(0, 100).normalize();
+        assert.strictEqual(v2.x, 0);
+        assert.strictEqual(v2.y, 1);
+
+        const v3 = new Victor(-20, -20).normalize();
+        assertCloseTo(v3.x, -Math.sqrt(2) / 2);
+        assertCloseTo(v3.y, -Math.sqrt(2) / 2);
+    });
+
+    test('norm', () => {
+        const v1 = new Victor(10, 0).norm();
+        assert.strictEqual(v1.x, 1);
+        assert.strictEqual(v1.y, 0);
+
+        const v2 = new Victor(0, 100).norm();
+        assert.strictEqual(v2.x, 0);
+        assert.strictEqual(v2.y, 1);
+
+        const v3 = new Victor(-20, -20).norm();
+        assertCloseTo(v3.x, -Math.sqrt(2) / 2);
+        assertCloseTo(v3.y, -Math.sqrt(2) / 2);
+    });
+
+    test('limit', () => {
+        const v1 = new Victor(100, 50).limit(80, 0.9);
+        assert.strictEqual(v1.x, 90);
+        assert.strictEqual(v1.y, 50);
+
+        const v2 = new Victor(5, 10).limit(8, 0.5);
+        assert.strictEqual(v2.x, 5);
+        assert.strictEqual(v2.y, 5);
+
+        const v3 = new Victor(200, 200).limit(100, 0.1);
+        assert.strictEqual(v3.x, 20);
+        assert.strictEqual(v3.y, 20);
     });
 });
 
@@ -477,4 +515,8 @@ test('Angle methods', () => {
         assert.strictEqual(new Victor(0, -10).verticalAngleDeg(), 180);
         assert.strictEqual(new Victor(10, 0).verticalAngleDeg(), 90);
     });
+});
+
+test('toString', () => {
+    assert.strictEqual(new Victor(0, 0).toString(), 'x: 0, y: 0');
 });
