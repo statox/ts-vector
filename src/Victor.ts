@@ -34,6 +34,12 @@
  * never happen.
  */
 
+export class DivisionByZeroError extends Error {
+    constructor() {
+        super('Tried to divide by 0');
+    }
+}
+
 /**
  * Constructor.
  *
@@ -228,7 +234,7 @@ export class Victor {
      * ### Examples:
      *     const vec = new Victor(10, 20);
      *
-     *     vec.subtractScalar(20);
+     *     vec.subtractScalar(2);
      *     assert.equal(vec.x, 8)
      *     assert.equal(vec.y, 18)
      *
@@ -288,11 +294,15 @@ export class Victor {
      *     assert.equal(vec1.x, 50)
      *     assert.equal(vec1.y, 50)
      *
-     * @param {Victor} vector The other vector you want divide by
+     * @param {Victor} vec The other vector you want divide by
      * @return `this` for chaining capabilities
      */
-    divideX(vector: Victor) {
-        this.x /= vector.x;
+    divideX(vec: Victor) {
+        if (vec.x === 0) {
+            throw new DivisionByZeroError();
+        }
+
+        this.x /= vec.x;
         return this;
     }
 
@@ -303,15 +313,19 @@ export class Victor {
      *     const vec1 = new Victor(100, 50);
      *     const vec2 = new Victor(0, 2);
      *
-     *     vec1.divideX(vec2);
+     *     vec1.divideY(vec2);
      *     assert.equal(vec1.x, 100)
      *     assert.equal(vec1.y, 25)
      *
-     * @param {Victor} vector The other vector you want divide by
+     * @param {Victor} vec The other vector you want divide by
      * @return `this` for chaining capabilities
      */
-    divideY(vector: Victor) {
-        this.y /= vector.y;
+    divideY(vec: Victor) {
+        if (vec.y === 0) {
+            throw new DivisionByZeroError();
+        }
+
+        this.y /= vec.y;
         return this;
     }
 
@@ -330,6 +344,10 @@ export class Victor {
      * @return `this` for chaining capabilities
      */
     divide(vec: Victor) {
+        if (vec.x === 0 || vec.y === 0) {
+            throw new DivisionByZeroError();
+        }
+
         this.x /= vec.x;
         this.y /= vec.y;
         return this;
@@ -342,23 +360,16 @@ export class Victor {
      *     const vec = new Victor(100, 50);
      *
      *     vec.divideScalar(2);
-     *     assert.equal(vec1.x, 50)
-     *     assert.equal(vec1.y, 25)
+     *     assert.equal(vec.x, 50)
+     *     assert.equal(vec.y, 25)
      *
      * @param {Number} scalar The scalar to divide by
      * @return `this` for chaining capabilities
      */
     divideScalar(scalar: number) {
-        // Original code as special case for scalar == 0 which
-        // is inconsistent with the other methods
-        //
-        // if (scalar !== 0) {
-        //     this.x /= scalar;
-        //     this.y /= scalar;
-        // } else {
-        //     this.x = 0;
-        //     this.y = 0;
-        // }
+        if (scalar === 0) {
+            throw new DivisionByZeroError();
+        }
 
         this.x /= scalar;
         this.y /= scalar;
@@ -380,11 +391,9 @@ export class Victor {
      * @return `this` for chaining capabilities
      */
     divideScalarX(scalar: number) {
-        // if (scalar !== 0) {
-        //     this.x /= scalar;
-        // } else {
-        //     this.x = 0;
-        // }
+        if (scalar === 0) {
+            throw new DivisionByZeroError();
+        }
 
         this.x /= scalar;
         return this;
@@ -404,11 +413,9 @@ export class Victor {
      * @return `this` for chaining capabilities
      */
     divideScalarY(scalar: number) {
-        // if (scalar !== 0) {
-        //     this.y /= scalar;
-        // } else {
-        //     this.y = 0;
-        // }
+        if (scalar === 0) {
+            throw new DivisionByZeroError();
+        }
 
         this.y /= scalar;
         return this;

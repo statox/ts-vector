@@ -6,6 +6,7 @@ Changes from Victor:
 - Removed `rotateBy` and `rotateByDeg` which seemed to be broken or not useful ([Issue agreeing with that](https://github.com/maxkueng/victor/issues/37))
 - Improved documentation (In particular for the remaining rotation functions)
 - Added tests
+- Explicitly fail when trying to divide by zero
 
 - `.toFixed()` converted components to string, fixed to keep them number, might renamed the function as suggested here: https://github.com/maxkueng/victor/issues/28
 - TODO Angle between 2 vectors https://github.com/maxkueng/victor/issues/30

@@ -1,14 +1,187 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 
-import { Victor } from '../src/Victor.ts';
+import { DivisionByZeroError, Victor } from '../src/Victor.ts';
 
 const assertCloseTo = (actual: number, expected: number, margin: number = 0.000001) => {
     const isInMargin = actual >= expected - margin && actual <= expected + margin;
     assert.strictEqual(isInMargin, true, `Expected ${actual} to be close to ${expected}`);
 };
 
-test('distance functions', () => {
+test('Addition functions', () => {
+    test('addX', () => {
+        const vec1 = new Victor(10, 10);
+        const vec2 = new Victor(20, 30);
+
+        vec1.addX(vec2);
+        assert.strictEqual(vec1.x, 30);
+        assert.strictEqual(vec1.y, 10);
+    });
+
+    test('addY', () => {
+        const vec1 = new Victor(10, 10);
+        const vec2 = new Victor(20, 30);
+
+        vec1.addY(vec2);
+        assert.strictEqual(vec1.x, 10);
+        assert.strictEqual(vec1.y, 40);
+    });
+
+    test('add', () => {
+        const vec1 = new Victor(10, 10);
+        const vec2 = new Victor(20, 30);
+
+        vec1.add(vec2);
+        assert.strictEqual(vec1.x, 30);
+        assert.strictEqual(vec1.y, 40);
+    });
+
+    test('addScalar', () => {
+        const vec = new Victor(10, 20);
+
+        vec.addScalar(2);
+        assert.strictEqual(vec.x, 12);
+        assert.strictEqual(vec.y, 22);
+    });
+
+    test('addScalarX', () => {
+        const vec = new Victor(10, 20);
+
+        vec.addScalarX(2);
+        assert.equal(vec.x, 12);
+        assert.equal(vec.y, 20);
+    });
+
+    test('addScalarY', () => {
+        const vec = new Victor(10, 20);
+
+        vec.addScalarY(2);
+        assert.equal(vec.x, 10);
+        assert.equal(vec.y, 22);
+    });
+});
+
+test('Subtraction functions', () => {
+    test('subtractX', () => {
+        const vec1 = new Victor(30, 30);
+        const vec2 = new Victor(10, 20);
+
+        vec1.subtractX(vec2);
+        assert.strictEqual(vec1.x, 20);
+        assert.strictEqual(vec1.y, 30);
+    });
+
+    test('subtractY', () => {
+        const vec1 = new Victor(30, 30);
+        const vec2 = new Victor(10, 20);
+
+        vec1.subtractY(vec2);
+        assert.strictEqual(vec1.x, 30);
+        assert.strictEqual(vec1.y, 10);
+    });
+
+    test('subtract', () => {
+        const vec1 = new Victor(30, 30);
+        const vec2 = new Victor(10, 20);
+
+        vec1.subtract(vec2);
+        assert.strictEqual(vec1.x, 20);
+        assert.strictEqual(vec1.y, 10);
+    });
+
+    test('subtractScalar', () => {
+        const vec = new Victor(10, 20);
+
+        vec.subtractScalar(2);
+        assert.strictEqual(vec.x, 8);
+        assert.strictEqual(vec.y, 18);
+    });
+
+    test('subtractScalarX', () => {
+        const vec = new Victor(10, 20);
+
+        vec.subtractScalarX(2);
+        assert.strictEqual(vec.x, 8);
+        assert.strictEqual(vec.y, 20);
+    });
+
+    test('subtractScalarY', () => {
+        const vec = new Victor(10, 20);
+
+        vec.subtractScalarY(2);
+        assert.strictEqual(vec.x, 10);
+        assert.strictEqual(vec.y, 18);
+    });
+});
+
+test('Division functions', () => {
+    test('divideX', () => {
+        const vec1 = new Victor(100, 50);
+        const vec2 = new Victor(2, 0);
+
+        vec1.divideX(vec2);
+        assert.strictEqual(vec1.x, 50);
+        assert.strictEqual(vec1.y, 50);
+
+        assert.throws(() => vec1.divideX(new Victor(0, 10)), DivisionByZeroError);
+    });
+
+    test('divideY', () => {
+        const vec1 = new Victor(100, 50);
+        const vec2 = new Victor(0, 2);
+
+        vec1.divideY(vec2);
+        assert.strictEqual(vec1.x, 100);
+        assert.strictEqual(vec1.y, 25);
+
+        assert.throws(() => vec1.divideY(new Victor(10, 0)), DivisionByZeroError);
+    });
+
+    test('divide', () => {
+        const vec1 = new Victor(100, 50);
+        const vec2 = new Victor(2, 2);
+
+        vec1.divide(vec2);
+        assert.strictEqual(vec1.x, 50);
+        assert.strictEqual(vec1.y, 25);
+
+        assert.throws(() => vec1.divide(new Victor(0, 0)), DivisionByZeroError);
+        assert.throws(() => vec1.divide(new Victor(0, 10)), DivisionByZeroError);
+        assert.throws(() => vec1.divide(new Victor(10, 0)), DivisionByZeroError);
+    });
+
+    test('divideScalar', () => {
+        const vec = new Victor(100, 50);
+
+        vec.divideScalar(2);
+        assert.strictEqual(vec.x, 50);
+        assert.strictEqual(vec.y, 25);
+
+        assert.throws(() => vec.divideScalar(0), DivisionByZeroError);
+    });
+
+    test('divideScalarX', () => {
+        const vec = new Victor(100, 50);
+
+        vec.divideScalarX(2);
+        assert.strictEqual(vec.x, 50);
+        assert.strictEqual(vec.y, 50);
+
+        assert.throws(() => vec.divideScalarX(0), DivisionByZeroError);
+    });
+
+    test('divideScalarY', () => {
+        const vec = new Victor(100, 50);
+
+        vec.divideScalarY(2);
+        assert.strictEqual(vec.x, 100);
+        assert.strictEqual(vec.y, 25);
+
+        assert.throws(() => vec.divideScalarY(0), DivisionByZeroError);
+    });
+});
+
+test('Distance functions', () => {
     test('distanceX', () => {
         const v1 = new Victor(0, 0);
         const v2 = new Victor(10, 0);
