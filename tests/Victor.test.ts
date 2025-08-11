@@ -8,7 +8,7 @@ const assertCloseTo = (actual: number, expected: number, margin: number = 0.0000
     assert.strictEqual(isInMargin, true, `Expected ${actual} to be close to ${expected}`);
 };
 
-test('Addition functions', () => {
+test('Addition methods', () => {
     test('addX', () => {
         const vec1 = new Victor(10, 10);
         const vec2 = new Victor(20, 30);
@@ -61,7 +61,7 @@ test('Addition functions', () => {
     });
 });
 
-test('Subtraction functions', () => {
+test('Subtraction methods', () => {
     test('subtractX', () => {
         const vec1 = new Victor(30, 30);
         const vec2 = new Victor(10, 20);
@@ -114,7 +114,7 @@ test('Subtraction functions', () => {
     });
 });
 
-test('Division functions', () => {
+test('Division methods', () => {
     test('divideX', () => {
         const vec1 = new Victor(100, 50);
         const vec2 = new Victor(2, 0);
@@ -181,7 +181,7 @@ test('Division functions', () => {
     });
 });
 
-test('Multiplication functions', () => {
+test('Multiplication methods', () => {
     test('multiplyX', () => {
         const vec1 = new Victor(100, 50);
         const vec2 = new Victor(2, 0);
@@ -258,7 +258,7 @@ test('Multiplication functions', () => {
     });
 });
 
-test('Distance functions', () => {
+test('Distance methods', () => {
     test('distanceX', () => {
         const v1 = new Victor(0, 0);
         const v2 = new Victor(10, 0);
@@ -308,7 +308,7 @@ test('Distance functions', () => {
     });
 });
 
-test('Helper functions', () => {
+test('Helper methods', () => {
     test('length', () => {
         assert.strictEqual(new Victor(100, 0).length(), 100);
         assert.strictEqual(new Victor(0, 100).length(), 100);
@@ -320,7 +320,7 @@ test('Helper functions', () => {
     });
 });
 
-test('Rotation functions', () => {
+test('Rotation methods', () => {
     test('rotateTo', () => {
         const v = new Victor(10, 0);
         assert.strictEqual(v.horizontalAngle(), 0);
@@ -431,7 +431,7 @@ test('Rotation functions', () => {
     });
 });
 
-test('Angle functions', () => {
+test('Angle methods', () => {
     test('horizontal angle radians', () => {
         assert.strictEqual(new Victor(0, 0).horizontalAngle(), 0);
 
