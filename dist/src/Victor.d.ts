@@ -1,6 +1,7 @@
 /**
  * MIT License
  *
+ * Copyright (c) 2025 statox (Adrien Fabre)
  * Copyright (c) 2011 Max Kueng, George Crabtree
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -22,6 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 /**
  * # Victor - A JavaScript 2D vector class with methods for common vector operations
  *
@@ -31,22 +33,22 @@
  * it's ready redistribute the package properly. Depending how it goes, that might
  * never happen.
  */
+
 /**
  * Constructor.
  *
  * ### Examples:
- *     var vec1 = new Victor(100, 50);
- *     var vec2 = Victor(42, 1337);
+ *     const vec = new Victor(100, 50);
  *
  * @param {Number} x Value of the x axis
  * @param {Number} y Value of the y axis
- * @return {Victor}
- * @api public
+ * @return A new instance of the object
  */
 export declare class Victor {
     x: number;
     y: number;
     constructor(x?: number, y?: number);
+
     /**
      * Adds another vector's X axis to this one
      *
@@ -58,7 +60,6 @@ export declare class Victor {
      *     vec1.toString();
      *     // => x:30, y:10
      *
-     * @api public
      */
     addX(vec: Victor): this;
     /**
@@ -72,7 +73,6 @@ export declare class Victor {
      *     vec1.toString();
      *     // => x:10, y:40
      *
-     * @api public
      */
     addY(vec: Victor): this;
     /**
@@ -86,7 +86,6 @@ export declare class Victor {
      *     vec1.toString();
      *     // => x:30, y:40
      *
-     * @api public
      */
     add(vec: Victor): this;
     /**
@@ -99,7 +98,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x: 3, y: 4
      *
-     * @api public
      */
     addScalar(scalar: number): this;
     /**
@@ -112,7 +110,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x: 3, y: 2
      *
-     * @api public
      */
     addScalarX(scalar: number): this;
     /**
@@ -125,7 +122,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x: 1, y: 4
      *
-     * @api public
      */
     addScalarY(scalar: number): this;
     /**
@@ -139,7 +135,6 @@ export declare class Victor {
      *     vec1.toString();
      *     // => x:80, y:50
      *
-     * @api public
      */
     subtractX(vec: Victor): this;
     /**
@@ -153,7 +148,6 @@ export declare class Victor {
      *     vec1.toString();
      *     // => x:100, y:20
      *
-     * @api public
      */
     subtractY(vec: Victor): this;
     /**
@@ -167,7 +161,6 @@ export declare class Victor {
      *     vec1.toString();
      *     // => x:80, y:20
      *
-     * @api public
      */
     subtract(vec: Victor): this;
     /**
@@ -180,7 +173,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x: 80, y: 180
      *
-     * @api public
      */
     subtractScalar(scalar: number): this;
     /**
@@ -193,7 +185,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x: 80, y: 200
      *
-     * @api public
      */
     subtractScalarX(scalar: number): this;
     /**
@@ -206,7 +197,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x: 100, y: 180
      *
-     * @api public
      */
     subtractScalarY(scalar: number): this;
     /**
@@ -220,7 +210,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:50, y:50
      *
-     * @api public
      */
     divideX(vector: Victor): this;
     /**
@@ -234,7 +223,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:100, y:25
      *
-     * @api public
      */
     divideY(vector: Victor): this;
     /**
@@ -248,7 +236,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:50, y:25
      *
-     * @api public
      */
     divide(vector: Victor): this;
     /**
@@ -261,7 +248,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:50, y:25
      *
-     * @api public
      */
     divideScalar(scalar: number): this;
     /**
@@ -274,7 +260,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:50, y:50
      *
-     * @api public
      */
     divideScalarX(scalar: number): this;
     /**
@@ -287,7 +272,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:100, y:25
      *
-     * @api public
      */
     divideScalarY(scalar: number): this;
     /**
@@ -300,7 +284,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:-100, y:50
      *
-     * @api public
      */
     invertX(): this;
     /**
@@ -313,7 +296,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:100, y:-50
      *
-     * @api public
      */
     invertY(): this;
     /**
@@ -326,7 +308,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:-100, y:-50
      *
-     * @api public
      */
     invert(): this;
     /**
@@ -340,7 +321,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:200, y:50
      *
-     * @api public
      */
     multiplyX(vector: Victor): this;
     /**
@@ -354,7 +334,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:100, y:100
      *
-     * @api public
      */
     multiplyY(vector: Victor): this;
     /**
@@ -368,7 +347,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:200, y:100
      *
-     * @api public
      */
     multiply(vector: Victor): this;
     /**
@@ -381,7 +359,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:200, y:100
      *
-     * @api public
      */
     multiplyScalar(scalar: number): this;
     /**
@@ -394,7 +371,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:200, y:50
      *
-     * @api public
      */
     multiplyScalarX(scalar: number): this;
     /**
@@ -407,13 +383,11 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:100, y:100
      *
-     * @api public
      */
     multiplyScalarY(scalar: number): this;
     /**
      * Normalize
      *
-     * @api public
      */
     normalize(): this;
     norm: () => this;
@@ -429,7 +403,6 @@ export declare class Victor {
      *
      * @param {Number} max The maximum value for both x and y axis
      * @param {Number} factor Factor by which the axis are to be multiplied with
-     * @api public
      */
     limit(max: number, factor: number): this;
     /**
@@ -444,7 +417,6 @@ export declare class Victor {
      *
      * @param {Victor} topLeft first vector
      * @param {Victor} bottomRight second vector
-     * @api public
      */
     randomize(topLeft: Victor, bottomRight: Victor): this;
     /**
@@ -459,7 +431,6 @@ export declare class Victor {
      *
      * @param {Victor} topLeft first vector
      * @param {Victor} bottomRight second vector
-     * @api public
      */
     randomizeX(topLeft: Victor, bottomRight: Victor): this;
     /**
@@ -474,7 +445,6 @@ export declare class Victor {
      *
      * @param {Victor} topLeft first vector
      * @param {Victor} bottomRight second vector
-     * @api public
      */
     randomizeY(topLeft: Victor, bottomRight: Victor): this;
     /**
@@ -489,7 +459,6 @@ export declare class Victor {
      *
      * @param {Victor} topLeft first vector
      * @param {Victor} bottomRight second vector
-     * @api public
      */
     randomizeAny(topLeft: Victor, bottomRight: Victor): this;
     /**
@@ -502,7 +471,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:100, y:51
      *
-     * @api public
      */
     unfloat(): this;
     /**
@@ -516,7 +484,6 @@ export declare class Victor {
      *     // => x:100.23, y:51.98
      *
      * @param {Number} precision (default: 8)
-     * @api public
      */
     toFixed(precision?: number): this;
     /**
@@ -532,7 +499,6 @@ export declare class Victor {
      *
      * @param {Victor} vec The other vector
      * @param {Number} amount The blend amount (optional, default: 0.5)
-     * @api public
      */
     mixX(vec: Victor, amount?: number): this;
     /**
@@ -548,7 +514,6 @@ export declare class Victor {
      *
      * @param {Victor} vec The other vector
      * @param {Number} amount The blend amount (optional, default: 0.5)
-     * @api public
      */
     mixY(vec: Victor, amount?: number): this;
     /**
@@ -564,7 +529,6 @@ export declare class Victor {
      *
      * @param {Victor} vec The other vector
      * @param {Number} amount The blend amount (optional, default: 0.5)
-     * @api public
      */
     mix(vec: Victor, amount?: number): this;
     /**
@@ -577,7 +541,6 @@ export declare class Victor {
      *     vec2.toString();
      *     // => x:10, y:10
      *
-     * @api public
      */
     clone(): Victor;
     /**
@@ -591,7 +554,6 @@ export declare class Victor {
      *     vec2.toString();
      *     // => x:20, y:10
      *
-     * @api public
      */
     copyX(vec: Victor): this;
     /**
@@ -605,7 +567,6 @@ export declare class Victor {
      *     vec2.toString();
      *     // => x:10, y:20
      *
-     * @api public
      */
     copyY(vec: Victor): this;
     /**
@@ -619,7 +580,6 @@ export declare class Victor {
      *     vec2.toString();
      *     // => x:20, y:20
      *
-     * @api public
      */
     copy(vec: Victor): this;
     /**
@@ -631,7 +591,6 @@ export declare class Victor {
      *     vec1.toString();
      *     // => x:0, y:0
      *
-     * @api public
      */
     zero(): this;
     /**
@@ -645,7 +604,6 @@ export declare class Victor {
      *     // => 23000
      *
      * @param {Victor} vec The second vector
-     * @api public
      */
     dot(vec: Victor): number;
     /**
@@ -658,7 +616,6 @@ export declare class Victor {
      * vec1.cross(vec2);
      * // => -30000
      *
-     * @api public
      */
     cross(vec: Victor): number;
     /**
@@ -672,7 +629,6 @@ export declare class Victor {
      *     vec.toString();
      *     // => x:50, y:50
      *
-     * @api public
      */
     projectOnto(vec: Victor): this;
     horizontalAngle(): number;
@@ -699,7 +655,6 @@ export declare class Victor {
      *     // => -100
      *
      * @param {Victor} vec The second vector
-     * @api public
      */
     distanceX(vec: Victor): number;
     /**
@@ -713,7 +668,6 @@ export declare class Victor {
      *     // => 100
      *
      * @param {Victor} vec The second vector
-     * @api public
      */
     absDistanceX(vec: Victor): number;
     /**
@@ -727,7 +681,6 @@ export declare class Victor {
      *     // => -10
      *
      * @param {Victor} vec The second vector
-     * @api public
      */
     distanceY(vec: Victor): number;
     /**
@@ -741,7 +694,6 @@ export declare class Victor {
      *     // => 10
      *
      * @param {Victor} vec The second vector
-     * @api public
      */
     absDistanceY(vec: Victor): number;
     /**
@@ -755,7 +707,6 @@ export declare class Victor {
      *     // => 100.4987562112089
      *
      * @param {Victor} vec The second vector
-     * @api public
      */
     distance(vec: Victor): number;
     /**
@@ -769,7 +720,6 @@ export declare class Victor {
      *     // => 10100
      *
      * @param {Victor} vec The second vector
-     * @api public
      */
     distanceSq(vec: Victor): number;
     /**
@@ -782,7 +732,6 @@ export declare class Victor {
      *     // => 111.80339887498948
      *
      * @return Length / Magnitude
-     * @api public
      */
     length(): number;
     /**
@@ -795,7 +744,6 @@ export declare class Victor {
      *     // => 12500
      *
      * @return  Length / Magnitude
-     * @api public
      */
     lengthSq(): number;
     magnitude: () => number;
@@ -808,7 +756,6 @@ export declare class Victor {
      *
      *     // => true
      *
-     * @api public
      */
     isZero(): boolean;
     /**
@@ -821,7 +768,6 @@ export declare class Victor {
      *
      *     // => true
      *
-     * @api public
      */
     isEqualTo(vec: Victor): boolean;
     /**
@@ -837,7 +783,6 @@ export declare class Victor {
      *     // => x:10, y:20
      *
      * @return
-     * @api public
      */
     toString(): string;
     /**
@@ -850,7 +795,6 @@ export declare class Victor {
      *     // => [10, 20]
      *
      * @return
-     * @api public
      */
     toArray(): number[];
     /**
@@ -863,7 +807,6 @@ export declare class Victor {
      *     // => { x: 10, y: 20 }
      *
      * @return
-     * @api public
      */
     toObject(): {
         x: number;
@@ -885,7 +828,6 @@ export declare class Victor {
  * @name Victor.fromArray
  * @param {Array} arr Array with the x and y values at index 0 and 1 respectively
  * @return The new instance
- * @api public
  */
 export declare const fromArray: (arr: [number, number]) => Victor;
 /**
@@ -900,7 +842,6 @@ export declare const fromArray: (arr: [number, number]) => Victor;
  * @name Victor.fromObject
  * @param {Object} obj Object with the values for x and y
  * @return The new instance
- * @api public
  */
 export declare const fromObject: (obj: {
     x?: number;
