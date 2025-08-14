@@ -1,0 +1,2 @@
+# Do not ignore the build directory even if ~/.gitignore excludes it
+!dist/

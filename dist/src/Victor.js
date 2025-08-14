@@ -1,6 +1,7 @@
 /**
  * MIT License
  *
+ * Copyright (c) 2025 Adrien Fabre (statox)
  * Copyright (c) 2011 Max Kueng, George Crabtree
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -31,17 +32,20 @@
  * it's ready redistribute the package properly. Depending how it goes, that might
  * never happen.
  */
+export class DivisionByZeroError extends Error {
+    constructor() {
+        super('Tried to divide by 0');
+    }
+}
 /**
  * Constructor.
  *
  * ### Examples:
- *     var vec1 = new Victor(100, 50);
- *     var vec2 = Victor(42, 1337);
+ *     const vec = new Victor(100, 50);
  *
  * @param {Number} x Value of the x axis
  * @param {Number} y Value of the y axis
- * @return {Victor}
- * @api public
+ * @return A new instance of the object
  */
 export class Victor {
     x = 0;
@@ -51,34 +55,36 @@ export class Victor {
         this.y = y;
     }
     /**
-     * Adds another vector's X axis to this one
+     * Adds the X axis of another vector to this one
      *
      * ### Examples:
-     *     var vec1 = new Victor(10, 10);
-     *     var vec2 = new Victor(20, 30);
+     *     const vec1 = new Victor(10, 10);
+     *     const vec2 = new Victor(20, 30);
      *
      *     vec1.addX(vec2);
-     *     vec1.toString();
-     *     // => x:30, y:10
+     *     assert.equal(vec1.x, 30)
+     *     assert.equal(vec1.y, 10)
      *
-     * @api public
+     * @param {Victor} vec The other vector you want to add to this one
+     * @return `this` for chaining capabilities
      */
     addX(vec) {
         this.x += vec.x;
         return this;
     }
     /**
-     * Adds another vector's Y axis to this one
+     * Adds the Y axis of another vector to this one
      *
      * ### Examples:
-     *     var vec1 = new Victor(10, 10);
-     *     var vec2 = new Victor(20, 30);
+     *     const vec1 = new Victor(10, 10);
+     *     const vec2 = new Victor(20, 30);
      *
      *     vec1.addY(vec2);
-     *     vec1.toString();
-     *     // => x:10, y:40
+     *     assert.equal(vec1.x, 10)
+     *     assert.equal(vec1.y, 40)
      *
-     * @api public
+     * @param {Victor} vec The other vector you want to add to this one
+     * @return `this` for chaining capabilities
      */
     addY(vec) {
         this.y += vec.y;
@@ -88,14 +94,14 @@ export class Victor {
      * Adds another vector to this one
      *
      * ### Examples:
-     *     var vec1 = new Victor(10, 10);
-     *     var vec2 = new Victor(20, 30);
+     *     const vec1 = new Victor(10, 10);
+     *     const vec2 = new Victor(20, 30);
      *
      *     vec1.add(vec2);
-     *     vec1.toString();
-     *     // => x:30, y:40
-     *
-     * @api public
+     *     assert.equal(vec1.x, 30)
+     *     assert.equal(vec1.y, 40)
+     * @param {Victor} vec The other vector you want to add to this one
+     * @return `this` for chaining capabilities
      */
     add(vec) {
         this.x += vec.x;
@@ -106,13 +112,14 @@ export class Victor {
      * Adds the given scalar to both vector axis
      *
      * ### Examples:
-     *     var vec = new Victor(1, 2);
+     *     const vec = new Victor(10, 20);
      *
      *     vec.addScalar(2);
-     *     vec.toString();
-     *     // => x: 3, y: 4
+     *     assert.equal(vec.x, 12)
+     *     assert.equal(vec.y, 22)
      *
-     * @api public
+     * @param {Number} scalar The scalar to add
+     * @return `this` for chaining capabilities
      */
     addScalar(scalar) {
         this.x += scalar;
@@ -123,13 +130,14 @@ export class Victor {
      * Adds the given scalar to the X axis
      *
      * ### Examples:
-     *     var vec = new Victor(1, 2);
+     *     const vec = new Victor(10, 20);
      *
      *     vec.addScalarX(2);
-     *     vec.toString();
-     *     // => x: 3, y: 2
+     *     assert.equal(vec.x, 12)
+     *     assert.equal(vec.y, 20)
      *
-     * @api public
+     * @param {Number} scalar The scalar to add
+     * @return `this` for chaining capabilities
      */
     addScalarX(scalar) {
         this.x += scalar;
@@ -139,13 +147,14 @@ export class Victor {
      * Adds the given scalar to the Y axis
      *
      * ### Examples:
-     *     var vec = new Victor(1, 2);
+     *     const vec = new Victor(10, 20);
      *
      *     vec.addScalarY(2);
-     *     vec.toString();
-     *     // => x: 1, y: 4
+     *     assert.equal(vec.x, 10)
+     *     assert.equal(vec.y, 22)
      *
-     * @api public
+     * @param {Number} scalar The scalar to add
+     * @return `this` for chaining capabilities
      */
     addScalarY(scalar) {
         this.y += scalar;
@@ -155,14 +164,15 @@ export class Victor {
      * Subtracts the X axis of another vector from this one
      *
      * ### Examples:
-     *     var vec1 = new Victor(100, 50);
-     *     var vec2 = new Victor(20, 30);
+     *     const vec1 = new Victor(30, 30);
+     *     const vec2 = new Victor(10, 20);
      *
      *     vec1.subtractX(vec2);
-     *     vec1.toString();
-     *     // => x:80, y:50
+     *     assert.equal(vec1.x, 20)
+     *     assert.equal(vec1.y, 30)
      *
-     * @api public
+     * @param {Victor} vec The other vector you want to subtract from this one
+     * @return `this` for chaining capabilities
      */
     subtractX(vec) {
         this.x -= vec.x;
@@ -172,14 +182,15 @@ export class Victor {
      * Subtracts the Y axis of another vector from this one
      *
      * ### Examples:
-     *     var vec1 = new Victor(100, 50);
-     *     var vec2 = new Victor(20, 30);
+     *     const vec1 = new Victor(30, 30);
+     *     const vec2 = new Victor(10, 20);
      *
      *     vec1.subtractY(vec2);
-     *     vec1.toString();
-     *     // => x:100, y:20
+     *     assert.equal(vec1.x, 30)
+     *     assert.equal(vec1.y, 10)
      *
-     * @api public
+     * @param {Victor} vec The other vector you want to subtract from this one
+     * @return `this` for chaining capabilities
      */
     subtractY(vec) {
         this.y -= vec.y;
@@ -189,14 +200,14 @@ export class Victor {
      * Subtracts another vector from this one
      *
      * ### Examples:
-     *     var vec1 = new Victor(100, 50);
-     *     var vec2 = new Victor(20, 30);
+     *     const vec1 = new Victor(30, 30);
+     *     const vec2 = new Victor(10, 20);
      *
      *     vec1.subtract(vec2);
-     *     vec1.toString();
-     *     // => x:80, y:20
-     *
-     * @api public
+     *     assert.equal(vec1.x, 20)
+     *     assert.equal(vec1.y, 10)
+     * @param {Victor} vec The other vector you want to subtract from this one
+     * @return `this` for chaining capabilities
      */
     subtract(vec) {
         this.x -= vec.x;
@@ -207,13 +218,14 @@ export class Victor {
      * Subtracts the given scalar from both axis
      *
      * ### Examples:
-     *     var vec = new Victor(100, 200);
+     *     const vec = new Victor(10, 20);
      *
-     *     vec.subtractScalar(20);
-     *     vec.toString();
-     *     // => x: 80, y: 180
+     *     vec.subtractScalar(2);
+     *     assert.equal(vec.x, 8)
+     *     assert.equal(vec.y, 18)
      *
-     * @api public
+     * @param {Number} scalar The scalar to subtract
+     * @return `this` for chaining capabilities
      */
     subtractScalar(scalar) {
         this.x -= scalar;
@@ -224,13 +236,14 @@ export class Victor {
      * Subtracts the given scalar from the X axis
      *
      * ### Examples:
-     *     var vec = new Victor(100, 200);
+     *     const vec = new Victor(10, 20);
      *
-     *     vec.subtractScalarX(20);
-     *     vec.toString();
-     *     // => x: 80, y: 200
+     *     vec.subtractScalarX(2);
+     *     assert.equal(vec.x, 8)
+     *     assert.equal(vec.y, 20)
      *
-     * @api public
+     * @param {Number} scalar The scalar to subtract
+     * @return `this` for chaining capabilities
      */
     subtractScalarX(scalar) {
         this.x -= scalar;
@@ -240,251 +253,211 @@ export class Victor {
      * Subtracts the given scalar from the Y axis
      *
      * ### Examples:
-     *     var vec = new Victor(100, 200);
+     *     const vec = new Victor(10, 20);
      *
-     *     vec.subtractScalarY(20);
-     *     vec.toString();
-     *     // => x: 100, y: 180
+     *     vec.subtractScalarY(2);
+     *     assert.equal(vec.x, 10)
+     *     assert.equal(vec.y, 18)
      *
-     * @api public
+     * @param {Number} scalar The scalar to subtract
+     * @return `this` for chaining capabilities
      */
     subtractScalarY(scalar) {
         this.y -= scalar;
         return this;
     }
     /**
-     * Divides the X axis by the x component of given vector
+     * Divides the X axis of this vector by the X axis of another one
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
-     *     var vec2 = new Victor(2, 0);
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(2, 0);
      *
-     *     vec.divideX(vec2);
-     *     vec.toString();
-     *     // => x:50, y:50
+     *     vec1.divideX(vec2);
+     *     assert.equal(vec1.x, 50)
+     *     assert.equal(vec1.y, 50)
      *
-     * @api public
+     * @param {Victor} vec The other vector you want divide by
+     * @return `this` for chaining capabilities
      */
-    divideX(vector) {
-        this.x /= vector.x;
+    divideX(vec) {
+        if (vec.x === 0) {
+            throw new DivisionByZeroError();
+        }
+        this.x /= vec.x;
         return this;
     }
     /**
-     * Divides the Y axis by the y component of given vector
+     * Divides the Y axis of this vector by the Y axis of another one
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
-     *     var vec2 = new Victor(0, 2);
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(0, 2);
      *
-     *     vec.divideY(vec2);
-     *     vec.toString();
-     *     // => x:100, y:25
+     *     vec1.divideY(vec2);
+     *     assert.equal(vec1.x, 100)
+     *     assert.equal(vec1.y, 25)
      *
-     * @api public
+     * @param {Victor} vec The other vector you want divide by
+     * @return `this` for chaining capabilities
      */
-    divideY(vector) {
-        this.y /= vector.y;
+    divideY(vec) {
+        if (vec.y === 0) {
+            throw new DivisionByZeroError();
+        }
+        this.y /= vec.y;
         return this;
     }
     /**
-     * Divides both vector axis by a axis values of given vector
+     * Divides the both axis of this vector by those of another one
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
-     *     var vec2 = new Victor(2, 2);
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(2, 2);
      *
-     *     vec.divide(vec2);
-     *     vec.toString();
-     *     // => x:50, y:25
+     *     vec1.divide(vec2);
+     *     assert.equal(vec1.x, 50)
+     *     assert.equal(vec1.y, 25)
      *
-     * @api public
+     * @param {Victor} vec The vector to divide by
+     * @return `this` for chaining capabilities
      */
-    divide(vector) {
-        this.x /= vector.x;
-        this.y /= vector.y;
+    divide(vec) {
+        if (vec.x === 0 || vec.y === 0) {
+            throw new DivisionByZeroError();
+        }
+        this.x /= vec.x;
+        this.y /= vec.y;
         return this;
     }
     /**
-     * Divides both vector axis by the given scalar value
+     * Divides both vector axis by the given scalar
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec = new Victor(100, 50);
      *
      *     vec.divideScalar(2);
-     *     vec.toString();
-     *     // => x:50, y:25
+     *     assert.equal(vec.x, 50)
+     *     assert.equal(vec.y, 25)
      *
-     * @api public
+     * @param {Number} scalar The scalar to divide by
+     * @return `this` for chaining capabilities
      */
     divideScalar(scalar) {
-        // Original code as special case for scalar == 0 which
-        // is inconsistent with the other methods
-        //
-        // if (scalar !== 0) {
-        //     this.x /= scalar;
-        //     this.y /= scalar;
-        // } else {
-        //     this.x = 0;
-        //     this.y = 0;
-        // }
+        if (scalar === 0) {
+            throw new DivisionByZeroError();
+        }
         this.x /= scalar;
         this.y /= scalar;
         return this;
     }
     /**
-     * Divides the X axis by the given scalar value
+     * Divides the X axis by the given scalar
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec = new Victor(100, 50);
      *
      *     vec.divideScalarX(2);
-     *     vec.toString();
-     *     // => x:50, y:50
+     *     assert.equal(vec.x, 50)
+     *     assert.equal(vec.y, 50)
      *
-     * @api public
+     * @param {Number} scalar The scalar to divide by
+     * @return `this` for chaining capabilities
      */
     divideScalarX(scalar) {
-        // if (scalar !== 0) {
-        //     this.x /= scalar;
-        // } else {
-        //     this.x = 0;
-        // }
+        if (scalar === 0) {
+            throw new DivisionByZeroError();
+        }
         this.x /= scalar;
         return this;
     }
     /**
-     * Divides the Y axis by the given scalar value
+     * Divides the Y axis by the given scalar
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec = new Victor(100, 50);
      *
      *     vec.divideScalarY(2);
-     *     vec.toString();
-     *     // => x:100, y:25
+     *     assert.equal(vec.x, 100)
+     *     assert.equal(vec.y, 25)
      *
-     * @api public
+     * @param {Number} scalar The scalar to divide by
+     * @return `this` for chaining capabilities
      */
     divideScalarY(scalar) {
-        // if (scalar !== 0) {
-        //     this.y /= scalar;
-        // } else {
-        //     this.y = 0;
-        // }
+        if (scalar === 0) {
+            throw new DivisionByZeroError();
+        }
         this.y /= scalar;
         return this;
     }
     /**
-     * Inverts the X axis
+     * Multiplies the X axis of this vector by the X axis of another one
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(2, 0);
      *
-     *     vec.invertX();
-     *     vec.toString();
-     *     // => x:-100, y:50
+     *     vec1.multiplyX(vec2);
+     *     assert.equal(vec1.x, 200)
+     *     assert.equal(vec1.y, 50)
      *
-     * @api public
+     * @param {Victor} vec The other vector you want multiply by
+     * @return `this` for chaining capabilities
      */
-    invertX() {
-        this.x *= -1;
+    multiplyX(vec) {
+        this.x *= vec.x;
         return this;
     }
     /**
-     * Inverts the Y axis
+     * Multiplies the Y axis of this vector by the Y axis of another one
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(0, 2);
      *
-     *     vec.invertY();
-     *     vec.toString();
-     *     // => x:100, y:-50
+     *     vec1.multiplyY(vec2);
+     *     assert.equal(vec1.x, 100)
+     *     assert.equal(vec1.y, 100)
      *
-     * @api public
+     * @param {Victor} vec The other vector you want multiply by
+     * @return `this` for chaining capabilities
      */
-    invertY() {
-        this.y *= -1;
+    multiplyY(vec) {
+        this.y *= vec.y;
         return this;
     }
     /**
-     * Inverts both axis
+     * Multiplies both axis of this vector by those of another one
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(2, 2);
      *
-     *     vec.invert();
-     *     vec.toString();
-     *     // => x:-100, y:-50
+     *     vec1.multiply(vec2);
+     *     assert.equal(vec1.x, 200)
+     *     assert.equal(vec1.y, 100)
      *
-     * @api public
+     * @param {Victor} vec The vector to multiply by
+     * @return `this` for chaining capabilities
      */
-    invert() {
-        this.invertX();
-        this.invertY();
+    multiply(vec) {
+        this.x *= vec.x;
+        this.y *= vec.y;
         return this;
     }
     /**
-     * Multiplies the X axis by X component of given vector
+     * Multiplies both vector axis by the given scalar
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
-     *     var vec2 = new Victor(2, 0);
-     *
-     *     vec.multiplyX(vec2);
-     *     vec.toString();
-     *     // => x:200, y:50
-     *
-     * @api public
-     */
-    multiplyX(vector) {
-        this.x *= vector.x;
-        return this;
-    }
-    /**
-     * Multiplies the Y axis by Y component of given vector
-     *
-     * ### Examples:
-     *     var vec = new Victor(100, 50);
-     *     var vec2 = new Victor(0, 2);
-     *
-     *     vec.multiplyX(vec2);
-     *     vec.toString();
-     *     // => x:100, y:100
-     *
-     * @api public
-     */
-    multiplyY(vector) {
-        this.y *= vector.y;
-        return this;
-    }
-    /**
-     * Multiplies both vector axis by values from a given vector
-     *
-     * ### Examples:
-     *     var vec = new Victor(100, 50);
-     *     var vec2 = new Victor(2, 2);
-     *
-     *     vec.multiply(vec2);
-     *     vec.toString();
-     *     // => x:200, y:100
-     *
-     * @api public
-     */
-    multiply(vector) {
-        this.x *= vector.x;
-        this.y *= vector.y;
-        return this;
-    }
-    /**
-     * Multiplies both vector axis by the given scalar value
-     *
-     * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec = new Victor(100, 50);
      *
      *     vec.multiplyScalar(2);
-     *     vec.toString();
-     *     // => x:200, y:100
+     *     assert.equal(vec.x, 200)
+     *     assert.equal(vec.y, 100)
      *
-     * @api public
+     * @param {Number} scalar The scalar to multiply by
+     * @return `this` for chaining capabilities
      */
     multiplyScalar(scalar) {
         this.x *= scalar;
@@ -495,13 +468,14 @@ export class Victor {
      * Multiplies the X axis by the given scalar
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec = new Victor(100, 50);
      *
      *     vec.multiplyScalarX(2);
-     *     vec.toString();
-     *     // => x:200, y:50
+     *     assert.equal(vec.x, 200)
+     *     assert.equal(vec.y, 50)
      *
-     * @api public
+     * @param {Number} scalar The scalar to multiply by
+     * @return `this` for chaining capabilities
      */
     multiplyScalarX(scalar) {
         this.x *= scalar;
@@ -511,48 +485,105 @@ export class Victor {
      * Multiplies the Y axis by the given scalar
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec = new Victor(100, 50);
      *
      *     vec.multiplyScalarY(2);
-     *     vec.toString();
-     *     // => x:100, y:100
+     *     assert.equal(vec.x, 100)
+     *     assert.equal(vec.y, 100)
      *
-     * @api public
+     * @param {Number} scalar The scalar to multiply by
+     * @return `this` for chaining capabilities
      */
     multiplyScalarY(scalar) {
         this.y *= scalar;
         return this;
     }
     /**
-     * Normalize
+     * Inverts the X axis
      *
-     * @api public
+     * ### Examples:
+     *     const vec = new Victor(100, 50);
+     *
+     *     vec.invertX();
+     *     assert.equal(vec.x, -100)
+     *     assert.equal(vec.y, 50)
+     *
+     * @return `this` for chaining capabilities
+     */
+    invertX() {
+        this.x *= -1;
+        return this;
+    }
+    /**
+     * Inverts the Y axis
+     *
+     * ### Examples:
+     *     const vec = new Victor(100, 50);
+     *
+     *     vec.invertY();
+     *     assert.equal(vec.x, 100)
+     *     assert.equal(vec.y, -50)
+     *
+     * @return `this` for chaining capabilities
+     */
+    invertY() {
+        this.y *= -1;
+        return this;
+    }
+    /**
+     * Inverts both axis
+     *
+     * ### Examples:
+     *     const vec = new Victor(100, 50);
+     *
+     *     vec.invert();
+     *     assert.equal(vec.x, -100)
+     *     assert.equal(vec.y, -50)
+     *
+     * @return `this` for chaining capabilities
+     */
+    invert() {
+        this.x *= -1;
+        this.y *= -1;
+        return this;
+    }
+    /**
+     * Normalize the vector. (Keep direction but reduce length to 1)
+     *
+     * ### Examples:
+     *     const vec = new Victor(10, 0);
+     *
+     *     vec.normalize();
+     *     assert.equal(vec.x, 1)
+     *     assert.equal(vec.y, 0)
+     *
+     * @return `this` for chaining capabilities
      */
     normalize() {
         const length = this.length();
-        if (length === 0) {
-            this.x = 1;
-            this.y = 0;
-        }
-        else {
-            this.divide(new Victor(length, length));
-        }
+        this.divideScalar(length);
         return this;
     }
+    /**
+     * Alias for .normalize()
+     *
+     * @return `this` for chaining capabilities
+     */
     norm = this.normalize;
     /**
-     * If the absolute vector axis is greater than `max`, multiplies the axis by `factor`
+     * If the absolute vector axis is greater than `max`, multiplies the axis
+     * by `factor`
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec = new Victor(100, 50);
      *
      *     vec.limit(80, 0.9);
-     *     vec.toString();
-     *     // => x:90, y:50
+     *     assert.equal(vec.x, 90)
+     *     assert.equal(vec.y, 50)
      *
      * @param {Number} max The maximum value for both x and y axis
      * @param {Number} factor Factor by which the axis are to be multiplied with
-     * @api public
+     * @return `this` for chaining capabilities
      */
     limit(max, factor) {
         if (Math.abs(this.x) > max) {
@@ -564,37 +595,21 @@ export class Victor {
         return this;
     }
     /**
-     * Randomizes both vector axis with a value between 2 vectors
+     * Randomizes the X axis with a value between the X axes of 2 others vectors
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec = new Victor(100, 50);
      *
-     *     vec.randomize(new Victor(50, 60), new Victor(70, 80`));
-     *     vec.toString();
-     *     // => x:67, y:73
+     *     const topLeft = new Victor(50, 60)
+     *     const bottomRight = new Victor(70, 80)
      *
-     * @param {Victor} topLeft first vector
-     * @param {Victor} bottomRight second vector
-     * @api public
-     */
-    randomize(topLeft, bottomRight) {
-        this.randomizeX(topLeft, bottomRight);
-        this.randomizeY(topLeft, bottomRight);
-        return this;
-    }
-    /**
-     * Randomizes the y axis with a value between 2 vectors
+     *     vec.randomizeX(topLeft, bottomRight);
+     *     assert.equal(vec.x, 67.17186656753522)
+     *     assert.equal(vec.y, 50)
      *
-     * ### Examples:
-     *     var vec = new Victor(100, 50);
-     *
-     *     vec.randomizeX(new Victor(50, 60), new Victor(70, 80`));
-     *     vec.toString();
-     *     // => x:55, y:50
-     *
-     * @param {Victor} topLeft first vector
-     * @param {Victor} bottomRight second vector
-     * @api public
+     * @param {Victor} topLeft First bounding vector
+     * @param {Victor} bottomRight Second bouding vector
+     * @return `this` for chaining capabilities
      */
     randomizeX(topLeft, bottomRight) {
         const min = Math.min(topLeft.x, bottomRight.x);
@@ -603,18 +618,21 @@ export class Victor {
         return this;
     }
     /**
-     * Randomizes the y axis with a value between 2 vectors
+     * Randomizes the Y axis with a value between the Y axes of 2 others vectors
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec = new Victor(100, 50);
      *
-     *     vec.randomizeY(new Victor(50, 60), new Victor(70, 80`));
-     *     vec.toString();
-     *     // => x:100, y:66
+     *     const topLeft = new Victor(50, 60)
+     *     const bottomRight = new Victor(70, 80)
      *
-     * @param {Victor} topLeft first vector
-     * @param {Victor} bottomRight second vector
-     * @api public
+     *     vec.randomizeY(topLeft, bottomRight);
+     *     assert.equal(vec.x, 100)
+     *     assert.equal(vec.y, 73.933542831865296)
+     *
+     * @param {Victor} topLeft First bounding vector
+     * @param {Victor} bottomRight Second bouding vector
+     * @return `this` for chaining capabilities
      */
     randomizeY(topLeft, bottomRight) {
         const min = Math.min(topLeft.y, bottomRight.y);
@@ -623,18 +641,44 @@ export class Victor {
         return this;
     }
     /**
-     * Randomly randomizes either axis between 2 vectors
+     * Randomizes both vector axis with a value between 2 vectors
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec = new Victor(100, 50);
      *
-     *     vec.randomizeAny(new Victor(50, 60), new Victor(70, 80));
-     *     vec.toString();
-     *     // => x:100, y:77
+     *     const topLeft = new Victor(50, 60)
+     *     const bottomRight = new Victor(70, 80)
      *
-     * @param {Victor} topLeft first vector
-     * @param {Victor} bottomRight second vector
-     * @api public
+     *     vec.randomize(topLeft, bottomRight);
+     *     assert.equal(vec.x, 67.17186656753522)
+     *     assert.equal(vec.y, 73.933542831865296)
+     *
+     * @param {Victor} topLeft First bounding vector
+     * @param {Victor} bottomRight Second bouding vector
+     * @return `this` for chaining capabilities
+     */
+    randomize(topLeft, bottomRight) {
+        this.randomizeX(topLeft, bottomRight);
+        this.randomizeY(topLeft, bottomRight);
+        return this;
+    }
+    /**
+     * Randomly choses one axis and randomizes it with a value between the
+     * corresponding axes of 2 other vectors
+     *
+     * ### Examples:
+     *     const vec = new Victor(100, 50);
+     *
+     *     const topLeft = new Victor(50, 60)
+     *     const bottomRight = new Victor(70, 80)
+     *
+     *     vec.randomizeAny(topLeft, bottomRight);
+     *     assert.equal(vec.x, 67.17186656753522)
+     *     assert.equal(vec.y, 50)
+     *
+     * @param {Victor} topLeft First bounding vector
+     * @param {Victor} bottomRight Second bouding vector
+     * @return `this` for chaining capabilities
      */
     randomizeAny(topLeft, bottomRight) {
         if (Math.random() < 0.5) {
@@ -646,16 +690,16 @@ export class Victor {
         return this;
     }
     /**
-     * Rounds both axis to an integer value
+     * Rounds both axis to an integer value using Math.round()
      *
      * ### Examples:
-     *     var vec = new Victor(100.2, 50.9);
+     *     const vec = new Victor(100.2, 50.9);
      *
      *     vec.unfloat();
-     *     vec.toString();
-     *     // => x:100, y:51
+     *     assert.equal(vec.x, 100)
+     *     assert.equal(vec.y, 51)
      *
-     * @api public
+     * @return `this` for chaining capabilities
      */
     unfloat() {
         this.x = Math.round(this.x);
@@ -663,17 +707,17 @@ export class Victor {
         return this;
     }
     /**
-     * Rounds both axis to a certain precision
+     * Fix both axis to a certain precision using Number.toFixed()
      *
      * ### Examples:
-     *     var vec = new Victor(100.2345, 50.9876);
+     *     const vec = new Victor(100.2345, 50.9876);
      *
      *     vec.toFixed(2);
-     *     vec.toString();
-     *     // => x:100.23, y:51.98
+     *     assert.equal(vec.x, 100.23)
+     *     assert.equal(vec.y, 50.99)
      *
      * @param {Number} precision (default: 8)
-     * @api public
+     * @return `this` for chaining capabilities
      */
     toFixed(precision = 8) {
         this.x = Number(this.x.toFixed(precision));
@@ -684,16 +728,16 @@ export class Victor {
      * Performs a linear blend / interpolation of the X axis towards another vector
      *
      * ### Examples:
-     *     var vec1 = new Victor(100, 100);
-     *     var vec2 = new Victor(200, 200);
+     *     const vec1 = new Victor(100, 100);
+     *     const vec2 = new Victor(200, 200);
      *
      *     vec1.mixX(vec2, 0.5);
-     *     vec.toString();
-     *     // => x:150, y:100
+     *     assert.equal(vec1.x, 150)
+     *     assert.equal(vec1.y, 100)
      *
      * @param {Victor} vec The other vector
      * @param {Number} amount The blend amount (optional, default: 0.5)
-     * @api public
+     * @return `this` for chaining capabilities
      */
     mixX(vec, amount = 0.5) {
         this.x = (1 - amount) * this.x + amount * vec.x;
@@ -703,16 +747,16 @@ export class Victor {
      * Performs a linear blend / interpolation of the Y axis towards another vector
      *
      * ### Examples:
-     *     var vec1 = new Victor(100, 100);
-     *     var vec2 = new Victor(200, 200);
+     *     const vec1 = new Victor(100, 100);
+     *     const vec2 = new Victor(200, 200);
      *
      *     vec1.mixY(vec2, 0.5);
-     *     vec.toString();
-     *     // => x:100, y:150
+     *     assert.equal(vec1.x, 100)
+     *     assert.equal(vec1.y, 150)
      *
      * @param {Victor} vec The other vector
      * @param {Number} amount The blend amount (optional, default: 0.5)
-     * @api public
+     * @return `this` for chaining capabilities
      */
     mixY(vec, amount = 0.5) {
         this.y = (1 - amount) * this.y + amount * vec.y;
@@ -722,16 +766,16 @@ export class Victor {
      * Performs a linear blend / interpolation towards another vector
      *
      * ### Examples:
-     *     var vec1 = new Victor(100, 100);
-     *     var vec2 = new Victor(200, 200);
+     *     const vec1 = new Victor(100, 100);
+     *     const vec2 = new Victor(200, 200);
      *
      *     vec1.mix(vec2, 0.5);
-     *     vec.toString();
-     *     // => x:150, y:150
+     *     assert.equal(vec1.x, 150)
+     *     assert.equal(vec1.y, 150)
      *
      * @param {Victor} vec The other vector
      * @param {Number} amount The blend amount (optional, default: 0.5)
-     * @api public
+     * @return `this` for chaining capabilities
      */
     mix(vec, amount = 0.5) {
         this.mixX(vec, amount);
@@ -742,79 +786,83 @@ export class Victor {
      * Creates a clone of this vector
      *
      * ### Examples:
-     *     var vec1 = new Victor(10, 10);
-     *     var vec2 = vec1.clone();
+     *     const vec1 = new Victor(10, 10);
+     *     const vec2 = vec1.clone();
      *
-     *     vec2.toString();
-     *     // => x:10, y:10
+     *     assert.equal(vec2.x, vec1.x)
+     *     assert.equal(vec2.y, vec1.y)
      *
-     * @api public
+     * @return The instance of the newly created vector
      */
     clone() {
         return new Victor(this.x, this.y);
     }
     /**
-     * Copies another vector's X component in to its own
+     * Copies the X axis of another vector to this one
      *
      * ### Examples:
-     *     var vec1 = new Victor(10, 10);
-     *     var vec2 = new Victor(20, 20);
-     *     var vec2 = vec1.copyX(vec1);
+     *     const vec1 = new Victor(10, 10);
+     *     const vec2 = new Victor(20, 20);
      *
-     *     vec2.toString();
-     *     // => x:20, y:10
+     *     vec1.copyX(vec2);
+     *     assert.equal(vec1.x, 20)
+     *     assert.equal(vec1.y, 10)
      *
-     * @api public
+     * @param {Victor} vec The other vector you want to copy to this one
+     * @return `this` for chaining capabilities
      */
     copyX(vec) {
         this.x = vec.x;
         return this;
     }
     /**
-     * Copies another vector's Y component in to its own
+     * Copies the Y axis of another vector to this one
      *
      * ### Examples:
-     *     var vec1 = new Victor(10, 10);
-     *     var vec2 = new Victor(20, 20);
-     *     var vec2 = vec1.copyY(vec1);
+     *     const vec1 = new Victor(10, 10);
+     *     const vec2 = new Victor(20, 20);
      *
-     *     vec2.toString();
-     *     // => x:10, y:20
+     *     vec1.copyY(vec2);
+     *     assert.equal(vec1.x, 10)
+     *     assert.equal(vec1.y, 20)
      *
-     * @api public
+     * @param {Victor} vec The other vector you want to copy to this one
+     * @return `this` for chaining capabilities
      */
     copyY(vec) {
         this.y = vec.y;
         return this;
     }
     /**
-     * Copies another vector's X and Y components in to its own
+     * Copies vector axes to this one
      *
      * ### Examples:
-     *     var vec1 = new Victor(10, 10);
-     *     var vec2 = new Victor(20, 20);
-     *     var vec2 = vec1.copy(vec1);
+     *     const vec1 = new Victor(10, 10);
+     *     const vec2 = new Victor(20, 20);
      *
-     *     vec2.toString();
-     *     // => x:20, y:20
+     *     vec1.copy(vec2);
+     *     assert.equal(vec1.x, 20)
+     *     assert.equal(vec1.y, 20)
      *
-     * @api public
+     * @param {Victor} vec The other vector you want to copy to this one
+     * @return `this` for chaining capabilities
      */
     copy(vec) {
-        this.copyX(vec);
-        this.copyY(vec);
+        this.x = vec.x;
+        this.y = vec.y;
         return this;
     }
     /**
-     * Sets the vector to zero (0,0)
+     * Sets the vector axes to zero (0,0)
      *
      * ### Examples:
-     *     var vec1 = new Victor(10, 10);
-     *		 var1.zero();
-     *     vec1.toString();
-     *     // => x:0, y:0
+     *     const vec = new Victor(10, 10);
      *
-     * @api public
+     *     vec.zero();
+     *     assert.equal(vec1.x, 0)
+     *     assert.equal(vec1.y, 0)
+     *
+     * @return `this` for chaining capabilities
      */
     zero() {
         this.x = 0;
@@ -825,29 +873,33 @@ export class Victor {
      * Calculates the dot product of this vector and another
      *
      * ### Examples:
-     *     var vec1 = new Victor(100, 50);
-     *     var vec2 = new Victor(200, 60);
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(200, 60);
      *
-     *     vec1.dot(vec2);
-     *     // => 23000
+     *     const dp = vec1.dot(vec2);
+     *     assert.equal(dp, 23000)
      *
      * @param {Victor} vec The second vector
-     * @api public
+     * @return The dot product of this vector and the other one
      */
     dot(vec) {
         return this.x * vec.x + this.y * vec.y;
     }
     /**
-     * Calculates the cross product of this vector and another
+     * Calculates the cross product of this vector and another.
+     *
+     * Note that the resulting scalar value is due to considering
+     * the z axes as 0 https://stackoverflow.com/a/243977
      *
      * ### Examples:
-     * var vec1 = new Victor(100, 100);
-     * var vec2 = new Victor(500, 200);
+     *     const vec1 = new Victor(100, 100);
+     *     const vec2 = new Victor(500, 200);
      *
-     * vec1.cross(vec2);
-     * // => -30000
+     *     const cp = vec1.cross(vec2);
+     *     assert.equal(dp, -30000)
      *
-     * @api public
+     * @param {Victor} vec The second vector
+     * @return The cross product of this vector and the other one
      */
     cross(vec) {
         return this.x * vec.y - this.y * vec.x;
@@ -856,14 +908,15 @@ export class Victor {
      * Projects a vector onto another vector, setting itself to the result.
      *
      * ### Examples:
-     *     var vec = new Victor(100, 0);
-     *     var vec2 = new Victor(100, 100);
+     *     const vec1 = new Victor(100, 0);
+     *     const vec2 = new Victor(100, 100);
      *
-     *     vec.projectOnto(vec2);
-     *     vec.toString();
-     *     // => x:50, y:50
+     *     vec1.projectOnto(vec2);
+     *     assert.equal(vec1.x, 50)
+     *     assert.equal(vec1.y, 50)
      *
-     * @api public
+     * @param {Victor} vec The second vector
+     * @return `this` for chaining capabilities
      */
     projectOnto(vec) {
         const coeff = (this.x * vec.x + this.y * vec.y) / (vec.x * vec.x + vec.y * vec.y);
@@ -871,21 +924,118 @@ export class Victor {
         this.y = coeff * vec.y;
         return this;
     }
+    /**
+     * Gets the angle θ in the plane (in radians, -π < θ < π ) between the positive
+     * x-axis and the ray from (0, 0) to the point (x, y).
+     *
+     * This is also the phase of the complex number x + iy.
+     *
+     * Caution: The direction is not the same as verticalAngle()
+     *
+     * ### Examples:
+     *     assert.equal(0,          (new Victor(10, 0)).horizontalAngle());
+     *     assert.equal(Math.PI/2,  (new Victor(0, 10)).horizontalAngle());
+     *     assert.equal(Math.PI,    (new Victor(-10, 0)).horizontalAngle());
+     *     assert.equal(-Math.PI/2, (new Victor(0, -10)).horizontalAngle());
+     *
+     * @return The angle in radians
+     */
     horizontalAngle() {
         return Math.atan2(this.y, this.x);
     }
+    /**
+     * Gets the angle θ in the plane (in degrees, -180 < θ < 180 ) between the positive
+     * x-axis and the ray from (0, 0) to the point (x, y)
+     *
+     * This is also the phase of the complex number x + iy.
+     *
+     * Caution: The direction is not the same as verticalAngleDeg()
+     *
+     * ### Examples:
+     *     assert.equal(0,    (new Victor(10, 0)).horizontalAngleDeg());
+     *     assert.equal(90,   (new Victor(0, 10)).horizontalAngleDeg());
+     *     assert.equal(180,  (new Victor(-10, 0)).horizontalAngleDeg());
+     *     assert.equal(-90,  (new Victor(0, -10)).horizontalAngleDeg());
+     *
+     * @return The angle in degrees
+     */
     horizontalAngleDeg() {
         return radian2degrees(this.horizontalAngle());
     }
+    /**
+     * Gets the angle θ in the plane (in rads -π < θ < π) between the positive
+     * y-axis and the ray from (0, 0) to the point (x, y)
+     *
+     * Caution: The direction is not the same as horizontalAngleDeg()
+     *
+     * ### Examples:
+     *     assert.equal(0,          (new Victor(0, 10)).verticalAngleDeg());
+     *     assert.equal(-Math.PI/2, (new Victor(-10, 0)).verticalAngleDeg());
+     *     assert.equal(Math.PI/,   (new Victor(0, 10)).verticalAngleDeg());
+     *     assert.equal(Math.PI/2,  (new Victor(10, 0)).verticalAngleDeg());
+     *
+     * @return The angle in degrees
+     */
     verticalAngle() {
         return Math.atan2(this.x, this.y);
     }
+    /**
+     * Gets the angle θ in the plane (in degrees -180 < θ < 180) between the positive
+     * y-axis and the ray from (0, 0) to the point (x, y)
+     *
+     * Caution: The direction is not the same as horizontalAngleDeg()
+     *
+     * ### Examples:
+     *     assert.equal(0,   (new Victor(0, 10)).verticalAngleDeg());
+     *     assert.equal(-90, (new Victor(-10, 0)).verticalAngleDeg());
+     *     assert.equal(180, (new Victor(0, 10)).verticalAngleDeg());
+     *     assert.equal(90,  (new Victor(10, 0)).verticalAngleDeg());
+     *
+     * @return The angle in degrees
+     */
     verticalAngleDeg() {
         return radian2degrees(this.verticalAngle());
     }
+    /**
+     * Alias for .horizontalAngle()
+     *
+     * Kept for compatibility with Victor.js. Might change later
+     *
+     * @return The angle in radians
+     */
     angle = this.horizontalAngle;
-    angleDeg = this.horizontalAngleDeg;
+    /**
+     * Alias for .horizontalAngle()
+     *
+     * Kept for compatibility with Victor.js. Might change later
+     *
+     * @return The angle in radians
+     */
     direction = this.horizontalAngle;
+    /**
+     * Alias for .horizontalAngleDeg()
+     *
+     * Kept for compatibility with Victor.js. Might change later
+     *
+     * @return The angle in degrees
+     */
+    angleDeg = this.horizontalAngleDeg;
+    /**
+     * Rotate the vector counter-clockwise by an angle in radians
+     *
+     * ### Examples:
+     *     const vec = new Victor(10, 0);
+     *     assert.equal(0, vec.horizontalAngleDeg())
+     *
+     *     vec.rotate(Math.PI)
+     *     assert.equal(180, vec.horizontalAngleDeg())
+     *
+     *     vec.rotate(Math.PI / 2)
+     *     // π + π / 2 => -π/2
+     *     assert.equal(-90, vec.horizontalAngleDeg())
+     *
+     * @return `this` for chaining capabilities
+     */
     rotate(angle) {
         const nx = this.x * Math.cos(angle) - this.y * Math.sin(angle);
         const ny = this.x * Math.sin(angle) + this.y * Math.cos(angle);
@@ -893,37 +1043,79 @@ export class Victor {
         this.y = ny;
         return this;
     }
+    /**
+     * Rotate the vector counter-clockwise by an angle in degrees
+     *
+     * ### Examples:
+     *     const vec = new Victor(10, 0);
+     *     assert.equal(0, vec.horizontalAngleDeg())
+     *
+     *     vec.rotateDeg(180)
+     *     assert.equal(180, vec.horizontalAngleDeg())
+     *
+     *     vec.rotateDeg(90)
+     *     // 180 + 90 => -90
+     *     assert.equal(-90, vec.horizontalAngleDeg())
+     *
+     * @return `this` for chaining capabilities
+     */
     rotateDeg(angle) {
         const radAngle = degrees2radian(angle);
         return this.rotate(radAngle);
     }
+    /**
+     * Rotate the vector to an angle in radians using the positif
+     * x-axis as origin, move counter-clockwise
+     *
+     * ### Examples:
+     *     const vec = new Victor(10, 0);
+     *
+     *     vec.rotateTo(Math.PI);
+     *     assert.equal(vec1.x, -10)
+     *     assert.equal(vec1.y, 0)
+     *
+     *     v.rotateTo(-Math.PI/2);
+     *     assert.equal(v.x, 0);
+     *     assert.equal(v.y, -10);
+     *
+     * @return `this` for chaining capabilities
+     */
     rotateTo(rotation) {
-        return this.rotate(rotation - this.angle());
+        return this.rotate(rotation - this.horizontalAngle());
     }
+    /**
+     * Rotate the vector to an angle in degrees using the positif
+     * x-axis as origin, move counter-clockwise
+     *
+     * ### Examples:
+     *     const vec = new Victor(10, 0);
+     *
+     *     vec.rotateToDeg(180);
+     *     assert.equal(vec1.x, -10)
+     *     assert.equal(vec1.y, 0)
+     *
+     *     v.rotateTo(-90);
+     *     assert.equal(v.x, 0);
+     *     assert.equal(v.y, -10);
+     *
+     * @return `this` for chaining capabilities
+     */
     rotateToDeg(rotation) {
         const radRotation = degrees2radian(rotation);
         return this.rotateTo(radRotation);
     }
-    rotateBy(rotation) {
-        const angle = this.angle() + rotation;
-        return this.rotate(angle);
-    }
-    rotateByDeg(rotation) {
-        const radRotation = degrees2radian(rotation);
-        return this.rotateBy(radRotation);
-    }
     /**
-     * Calculates the distance of the X axis between this vector and another
+     * Calculates the distance between the X axis of this vector the X axis of another
      *
      * ### Examples:
-     *     var vec1 = new Victor(100, 50);
-     *     var vec2 = new Victor(200, 60);
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(200, 60);
      *
-     *     vec1.distanceX(vec2);
-     *     // => -100
+     *     const d = vec1.distanceX(vec2);
+     *     assert.equal(d, -100)
      *
      * @param {Victor} vec The second vector
-     * @api public
+     * @return The distance between the X axes
      */
     distanceX(vec) {
         return this.x - vec.x;
@@ -932,30 +1124,30 @@ export class Victor {
      * Same as `distanceX()` but always returns an absolute number
      *
      * ### Examples:
-     *     var vec1 = new Victor(100, 50);
-     *     var vec2 = new Victor(200, 60);
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(200, 60);
      *
-     *     vec1.absDistanceX(vec2);
-     *     // => 100
+     *     const d = vec1.distanceX(vec2);
+     *     assert.equal(d, 100)
      *
      * @param {Victor} vec The second vector
-     * @api public
+     * @return The absolute distance between the X axes
      */
     absDistanceX(vec) {
         return Math.abs(this.distanceX(vec));
     }
     /**
-     * Calculates the distance of the Y axis between this vector and another
+     * Calculates the distance between the X axis of this vector the X axis of another
      *
      * ### Examples:
-     *     var vec1 = new Victor(100, 50);
-     *     var vec2 = new Victor(200, 60);
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(200, 60);
      *
-     *     vec1.distanceY(vec2);
-     *     // => -10
+     *     const d = vec1.distanceY(vec2);
+     *     assert.equal(d, -10)
      *
      * @param {Victor} vec The second vector
-     * @api public
+     * @return The distance between the Y axes
      */
     distanceY(vec) {
         return this.y - vec.y;
@@ -964,14 +1156,14 @@ export class Victor {
      * Same as `distanceY()` but always returns an absolute number
      *
      * ### Examples:
-     *     var vec1 = new Victor(100, 50);
-     *     var vec2 = new Victor(200, 60);
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(200, 60);
      *
-     *     vec1.distanceY(vec2);
-     *     // => 10
+     *     const d = vec1.distanceY(vec2);
+     *     assert.equal(d, 10)
      *
      * @param {Victor} vec The second vector
-     * @api public
+     * @return The absolute distance between the Y axes
      */
     absDistanceY(vec) {
         return Math.abs(this.distanceY(vec));
@@ -980,14 +1172,14 @@ export class Victor {
      * Calculates the euclidean distance between this vector and another
      *
      * ### Examples:
-     *     var vec1 = new Victor(100, 50);
-     *     var vec2 = new Victor(200, 60);
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(200, 60);
      *
-     *     vec1.distance(vec2);
-     *     // => 100.4987562112089
+     *     const d = vec1.distance(vec2);
+     *     assert.equal(d, 100.4987562112089)
      *
      * @param {Victor} vec The second vector
-     * @api public
+     * @return The euclidian distance between the vectors
      */
     distance(vec) {
         return Math.sqrt(this.distanceSq(vec));
@@ -996,14 +1188,14 @@ export class Victor {
      * Calculates the squared euclidean distance between this vector and another
      *
      * ### Examples:
-     *     var vec1 = new Victor(100, 50);
-     *     var vec2 = new Victor(200, 60);
+     *     const vec1 = new Victor(100, 50);
+     *     const vec2 = new Victor(200, 60);
      *
-     *     vec1.distanceSq(vec2);
-     *     // => 10100
+     *     const d = vec1.distanceSq(vec2);
+     *     assert.equal(d, 10100)
      *
      * @param {Victor} vec The second vector
-     * @api public
+     * @return The squared euclidian distance between the vectors
      */
     distanceSq(vec) {
         const dx = this.distanceX(vec);
@@ -1014,58 +1206,65 @@ export class Victor {
      * Calculates the length or magnitude of the vector
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec = new Victor(100, 50);
      *
-     *     vec.length();
-     *     // => 111.80339887498948
+     *     const m = vec.length()
+     *     assert.equal(m, 111.80339887498948)
      *
-     * @return Length / Magnitude
-     * @api public
+     * @return The magnitude of the vector
      */
     length() {
         return Math.sqrt(this.lengthSq());
     }
     /**
-     * Squared length / magnitude
+     * Alias for .length()
+     *
+     * @return The magnitude of the vector
+     */
+    magnitude = this.length;
+    /**
+     * Calculates the squared length or squared magnitude of the vector
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec = new Victor(100, 50);
      *
-     *     vec.lengthSq();
-     *     // => 12500
+     *     const m = vec.lengthSq()
+     *     assert.equal(m, 12500)
      *
-     * @return  Length / Magnitude
-     * @api public
+     * @return The squared magnitude of the vector
      */
     lengthSq() {
         return this.x * this.x + this.y * this.y;
     }
-    magnitude = this.length;
     /**
      * Returns true if vector is (0, 0)
      *
      * ### Examples:
-     *     var vec = new Victor(100, 50);
+     *     const vec = new Victor(100, 50);
+     *     assert.false(vec.isZero())
+     *
      *     vec.zero();
+     *     assert.true(vec.isZero())
      *
-     *     // => true
-     *
-     * @api public
+     * @return true if the vector magnitude is 0, false otherwise
      */
     isZero() {
         return this.x === 0 && this.y === 0;
     }
     /**
-     * Returns true if this vector is the same as another
+     * Returns true if this vector axes values are the same as another
      *
      * ### Examples:
-     *     var vec1 = new Victor(100, 50);
-     *     var vec2 = new Victor(100, 50);
-     *     vec1.isEqualTo(vec2);
+     *     const vec1 = new Victor(100, 50);
      *
-     *     // => true
+     *     const vec2 = new Victor(100, 50);
+     *     assert.true(vec1.isEqualTo(vec2);
      *
-     * @api public
+     *     const vec3 = new Victor(0, 0);
+     *     assert.false(vec1.isEqualTo(vec3);
+     *
+     * @param {Victor} vec The second vector
+     * @return true if the vector magnitude is 0, false otherwise
      */
     isEqualTo(vec) {
         return this.x === vec.x && this.y === vec.y;
@@ -1074,16 +1273,14 @@ export class Victor {
      * # Utility Methods
      */
     /**
-     * Returns an string representation of the vector
+     * Returns a string representation of the vector
      *
      * ### Examples:
-     *     var vec = new Victor(10, 20);
+     *     const vec = new Victor(10, 20);
+     *     const s = vec.toString();
+     *     assert.equal(s, "x:10, y:20")
      *
-     *     vec.toString();
-     *     // => x:10, y:20
-     *
-     * @return
-     * @api public
+     * @return A string representing the vector's axes
      */
     toString() {
         return `x: ${this.x}, y: ${this.y}`;
@@ -1092,7 +1289,7 @@ export class Victor {
      * Returns an array representation of the vector
      *
      * ### Examples:
-     *     var vec = new Victor(10, 20);
+     *     const vec = new Victor(10, 20);
      *
      *     vec.toArray();
      *     // => [10, 20]
@@ -1107,7 +1304,7 @@ export class Victor {
      * Returns an object representation of the vector
      *
      * ### Examples:
-     *     var vec = new Victor(10, 20);
+     *     const vec = new Victor(10, 20);
      *
      *     vec.toObject();
      *     // => { x: 10, y: 20 }
@@ -1126,39 +1323,37 @@ export class Victor {
  * Creates a new instance from an array
  *
  * ### Examples:
- *     var vec = Victor.fromArray([42, 21]);
+ *     const vec = Victor.fromArray([42, 21]);
  *
  *     vec.toString();
  *     // => x:42, y:21
  *
  * @name Victor.fromArray
  * @param {Array} arr Array with the x and y values at index 0 and 1 respectively
- * @return The new instance
- * @api public
+ * @return A new instance of the object
  */
 export const fromArray = (arr) => {
     return new Victor(arr[0] || 0, arr[1] || 0);
 };
 /**
- * Creates a new instance from an object
+ * Creates a new instance from an object ressembling a vector
+ * (Object can have a `x: number` and/or a `y: number` property)
  *
  * ### Examples:
- *     var vec = Victor.fromObject({ x: 42, y: 21 });
+ *     const vec1 = Victor.fromObject({ x: 42, y: 21 });
+ *     const vec2 = new Victor(42, 21);
  *
- *     vec.toString();
- *     // => x:42, y:21
+ *     assert.true(vec1.isEqualTo(vec2))
  *
- * @name Victor.fromObject
- * @param {Object} obj Object with the values for x and y
- * @return The new instance
- * @api public
+ * @param {Object} obj Object with properties x and/or y
+ * @return A new instance of the object
  */
 export const fromObject = (obj) => {
     return new Victor(obj.x || 0, obj.y || 0);
 };
 const degrees = 180 / Math.PI;
 function random(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
+    return Math.random() * (max - min) + min;
 }
 function radian2degrees(rad) {
     return rad * degrees;

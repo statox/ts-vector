@@ -1,6 +1,6 @@
 {
     "name": "@statox/vector",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "A 2D Vector library",
     "main": "./dist/index.js",
     "types": "./dist/index.d.js",
@@ -19,6 +19,7 @@
         "lint": "eslint",
         "lint:fix": "npm run lint --fix",
         "tests": "node --test",
+        "tests:coverage": "node --test --experimental-test-coverage --test-reporter=spec --test-reporter-destination=coverage.info ",
         "build": "rm -fr dist/ && tsc",
         "watch": "rm -fr dist/ && tsc -w",
         "publish": "npm run check && npm run build && npm publish --access public"
